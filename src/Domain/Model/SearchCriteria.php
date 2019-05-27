@@ -43,4 +43,12 @@ class SearchCriteria
     {
         return $this->longitude;
     }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
 }

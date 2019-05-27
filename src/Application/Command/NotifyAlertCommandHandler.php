@@ -8,6 +8,9 @@ use App\Domain\Model\Alert;
 use App\Domain\Model\Position;
 use App\Domain\Model\Type;
 use App\Domain\Repository\AlertRepositoryInterface;
+use App\Infrastructure\Exception\PersistenceException;
+use App\Infrastructure\Exception\PositionException;
+use App\Infrastructure\Exception\TypeException;
 
 class NotifyAlertCommandHandler
 {
@@ -27,11 +30,19 @@ class NotifyAlertCommandHandler
      */
     public function handle(NotifyAlertCommand $command): void
     {
-        $alert = new Alert(
-            new Type($command->getType()),
-            new Position($command->getLatitude(), $command->getLongitude())
-        );
+        try {
+            $alert = new Alert(
+                new Type($command->getType()),
+                new Position($command->getLatitude(), $command->getLongitude())
+            );
+        } catch (TypeException | PositionException $exception) {
+            // TODO handle exceptions
+        }
 
-        $this->alertRepository->persist($alert);
+        try {
+            $this->alertRepository->persist($alert);
+        } catch (PersistenceException $exception) {
+            // TODO handle exceptions
+        }
     }
 }

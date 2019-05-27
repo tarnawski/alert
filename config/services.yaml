@@ -23,6 +23,10 @@ services:
         resource: '../src/Presentation/Web/Controller'
         tags: ['controller.service_arguments']
 
+    App\Presentation\CLI\Command\:
+        resource: '../src/Presentation/CLI/Command'
+        tags: ['console.command']
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
-use App\Infrastructure\Exception\PositionException;
+use App\Domain\Exception\PositionException;
 
 class Position
 {
