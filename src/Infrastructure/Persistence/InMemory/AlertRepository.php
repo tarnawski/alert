@@ -7,8 +7,8 @@ namespace App\Infrastructure\Persistence\InMemory;
 use App\Domain\Model\Position;
 use Exception;
 use DateTime;
-use App\Domain\Model\Alert;
-use App\Domain\Model\SearchCriteria;
+use App\Domain\Alert;
+use App\Domain\SearchCriteria;
 use App\Domain\Repository\AlertRepositoryInterface;
 
 class AlertRepository implements AlertRepositoryInterface

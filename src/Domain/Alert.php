@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Model;
+namespace App\Domain;
+
+use App\Domain\Model\Position;
+use App\Domain\Model\Type;
 
 class Alert
 {

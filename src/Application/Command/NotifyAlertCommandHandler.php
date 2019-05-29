@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Application\Command;
 
-use App\Domain\Model\Alert;
+use App\Domain\Alert;
+use App\Domain\Exception\PositionException;
+use App\Domain\Exception\TypeException;
 use App\Domain\Model\Position;
 use App\Domain\Model\Type;
 use App\Domain\Repository\AlertRepositoryInterface;
 use App\Infrastructure\Exception\PersistenceException;
-use App\Infrastructure\Exception\PositionException;
-use App\Infrastructure\Exception\TypeException;
 
 class NotifyAlertCommandHandler
 {

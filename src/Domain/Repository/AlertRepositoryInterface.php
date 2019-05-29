@@ -2,8 +2,8 @@
 
 namespace App\Domain\Repository;
 
-use App\Domain\Model\Alert;
-use App\Domain\Model\SearchCriteria;
+use App\Domain\Alert;
+use App\Domain\SearchCriteria;
 use App\Infrastructure\Exception\PersistenceException;
 
 interface AlertRepositoryInterface
