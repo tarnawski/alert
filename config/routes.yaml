@@ -1,3 +1,7 @@
+show:
+    path: /alerts/{identity}
+    controller: App\Presentation\Web\Controller\AlertController::showAction
+    methods: [GET]
 search:
     path: /alerts
     controller: App\Presentation\Web\Controller\AlertController::searchAction

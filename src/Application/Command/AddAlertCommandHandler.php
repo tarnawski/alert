@@ -7,12 +7,13 @@ namespace App\Application\Command;
 use App\Domain\Alert;
 use App\Domain\Exception\PositionException;
 use App\Domain\Exception\TypeException;
-use App\Domain\Model\Position;
-use App\Domain\Model\Type;
+use App\Domain\Alert\Position;
+use App\Domain\Alert\Type;
 use App\Domain\Repository\AlertRepositoryInterface;
+use App\Domain\AlertIdentity;
 use App\Infrastructure\Exception\PersistenceException;
 
-class NotifyAlertCommandHandler
+class AddAlertCommandHandler
 {
     /** @var AlertRepositoryInterface */
     private $alertRepository;
@@ -26,12 +27,13 @@ class NotifyAlertCommandHandler
     }
 
     /**
-     * @param NotifyAlertCommand $command
+     * @param AddAlertCommand $command
      */
-    public function handle(NotifyAlertCommand $command): void
+    public function handle(AddAlertCommand $command): void
     {
         try {
-            $alert = new Alert(
+            $alert = Alert::createWithData(
+                new AlertIdentity($command->getIdentity()),
                 new Type($command->getType()),
                 new Position($command->getLatitude(), $command->getLongitude())
             );

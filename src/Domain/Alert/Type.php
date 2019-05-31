@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Model;
+namespace App\Domain\Alert;
 
 use App\Domain\Exception\TypeException;
 
@@ -24,7 +24,6 @@ class Type
     private $name;
 
     /**
-     * Type constructor.
      * @param string $name
      * @throws TypeException
      */

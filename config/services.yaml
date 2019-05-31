@@ -30,18 +30,21 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    App\Infrastructure\Persistence\PDO\AlertRepository:
+    PDO:
+        class: PDO
         arguments:
-            $databaseUrl: '%env(DATABASE_URL)%'
+            $dsn: '%env(DATABASE_DNS)%'
+            $username: '%env(DATABASE_USERNAME)%'
+            $passwd: '%env(DATABAWSE_PASSWORD)%'
 
     App\Domain\Repository\AlertRepositoryInterface:
-        alias: App\Infrastructure\Persistence\PDO\AlertRepository
+        alias: App\Infrastructure\Persistence\AlertRepository
 
     App\Application\Command\NotifyAlertCommandHandler: ~
 
     App\Application\ServiceBus\CommandBus:
         calls:
-            - [register, ['@App\Application\Command\NotifyAlertCommandHandler']]
+            - [register, ['@App\Application\Command\AddAlertCommandHandler']]
 
     App\Application\Query\AlertQueryHandler: ~
 

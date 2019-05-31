@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Model;
+namespace App\Domain\Alert;
 
 use App\Domain\Exception\PositionException;
 

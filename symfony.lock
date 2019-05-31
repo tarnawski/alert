@@ -1,4 +1,13 @@
 {
+    "beberlei/assert": {
+        "version": "v3.2.0"
+    },
+    "prooph/common": {
+        "version": "v4.3.0"
+    },
+    "prooph/service-bus": {
+        "version": "v6.2.2"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -10,6 +19,9 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
+    },
+    "ramsey/uuid": {
+        "version": "3.8.0"
     },
     "symfony/cache": {
         "version": "v4.2.5"

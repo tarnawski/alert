@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Application\Command;
 
-class NotifyAlertCommand
+class AddAlertCommand
 {
+    /** @var string */
+    private $identity;
+
     /** @var string */
     private $type;
 
@@ -16,15 +19,26 @@ class NotifyAlertCommand
     private $longitude;
 
     /**
+     * NotifyAlertCommand constructor.
+     * @param string $identity
      * @param string $type
      * @param float $latitude
      * @param float $longitude
      */
-    public function __construct(string $type, float $latitude, float $longitude)
+    public function __construct(string $identity, string $type, float $latitude, float $longitude)
     {
+        $this->identity = $identity;
         $this->type = $type;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentity(): string
+    {
+        return $this->identity;
     }
 
     /**

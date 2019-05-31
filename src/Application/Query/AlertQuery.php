@@ -7,34 +7,21 @@ namespace App\Application\Query;
 class AlertQuery
 {
     /** @var string */
-    private $latitude;
-
-    /** @var string */
-    private $longitude;
+    private $identity;
 
     /**
-     * @param string $latitude
-     * @param string $longitude
+     * @param string $identity
      */
-    public function __construct(string $latitude, string $longitude)
+    public function __construct(string $identity)
     {
-        $this->latitude = $latitude;
-        $this->longitude = $longitude;
+        $this->identity = $identity;
     }
 
     /**
      * @return string
      */
-    public function getLatitude(): string
+    public function getIdentity(): string
     {
-        return $this->latitude;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLongitude(): string
-    {
-        return $this->longitude;
+        return $this->identity;
     }
 }

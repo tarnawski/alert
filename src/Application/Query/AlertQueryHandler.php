@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Application\Query;
 
-use App\Domain\SearchCriteria;
+use App\Domain\Alert;
+use App\Domain\AlertIdentity;
 use App\Domain\Repository\AlertRepositoryInterface;
 
 class AlertQueryHandler
@@ -24,10 +25,8 @@ class AlertQueryHandler
      * @param AlertQuery $query
      * @return array|null
      */
-    public function handle(AlertQuery $query): ?array
+    public function handle(AlertQuery $query): ?Alert
     {
-        return $this->alertRepository->findByCriteria(
-            new SearchCriteria($query->getLatitude(), $query->getLongitude())
-        );
+        return $this->alertRepository->get(new AlertIdentity($query->getIdentity()));
     }
 }

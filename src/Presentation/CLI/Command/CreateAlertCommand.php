@@ -2,8 +2,9 @@
 
 namespace App\Presentation\CLI\Command;
 
-use App\Application\Command\NotifyAlertCommand;
+use App\Application\Command\AddAlertCommand;
 use App\Application\ServiceBus\CommandBus;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -37,7 +38,9 @@ class CreateAlertCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $command = new NotifyAlertCommand(
+        $identity = Uuid::uuid4()->toString();
+        $command = new AddAlertCommand(
+            $identity,
             (string) $input->getArgument('type'),
             (float) $input->getArgument('latitude'),
             (float) $input->getArgument('longitude')
@@ -45,6 +48,6 @@ class CreateAlertCommand extends Command
 
         $this->commandBus->handle($command);
 
-        $output->writeln('Success');
+        $output->writeln('Success: ' . $identity);
     }
 }

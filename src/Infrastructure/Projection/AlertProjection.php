@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence\PDO;
+namespace App\Infrastructure\Projection;
 
 use App\Infrastructure\Exception\PersistenceException;
 use Exception;
@@ -12,7 +12,7 @@ use App\Domain\Alert;
 use App\Domain\SearchCriteria;
 use App\Domain\Repository\AlertRepositoryInterface;
 
-class AlertRepository implements AlertRepositoryInterface
+class AlertProjection implements AlertRepositoryInterface
 {
     const DEFAULT_LIMIT = 10;
 
