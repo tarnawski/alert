@@ -10,3 +10,8 @@ report:
     path: /alerts
     controller: App\Presentation\Web\Controller\AlertController::reportAction
     methods: [POST]
+
+confirm:
+    path: /alerts/{identity}
+    controller: App\Presentation\Web\Controller\AlertController::confirmAction
+    methods: [POST]

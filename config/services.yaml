@@ -45,6 +45,7 @@ services:
     App\Application\ServiceBus\CommandBus:
         calls:
             - [register, ['@App\Application\Command\AddAlertCommandHandler']]
+            - [register, ['@App\Application\Command\ConfirmAlertCommandHandler']]
 
     App\Application\Query\AlertQueryHandler: ~
 

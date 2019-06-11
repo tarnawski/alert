@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain;
 
+use App\Domain\Event\AlertConfirmed;
 use App\Domain\Event\AlertCreated;
 use App\Domain\Alert\Position;
 use App\Domain\Alert\Type;
@@ -12,11 +13,20 @@ use ReflectionException;
 
 class Alert
 {
+    /** @var string */
+    const STATUS_UNCONFIRMED = 'unconfirmed';
+
+    /** @var string */
+    const STATUS_CONFIRMED = 'confirmed';
+
     /** @var AlertIdentity */
     private $identity;
 
     /** @var Type */
     private $type;
+
+    /** @var string */
+    private $status;
 
     /** @var Position */
     private $position;
@@ -50,14 +60,6 @@ class Alert
     }
 
     /**
-     * @param AlertIdentity $identity
-     */
-    public function setIdentity(AlertIdentity $identity): void
-    {
-        $this->identity = $identity;
-    }
-
-    /**
      * @return Type
      */
     public function getType(): Type
@@ -66,11 +68,18 @@ class Alert
     }
 
     /**
-     * @param Type $type
+     * @return string
      */
-    public function setType(Type $type): void
+    public function getStatus(): string
     {
-        $this->type = $type;
+        return $this->status;
+    }
+
+    public function confirm(): void
+    {
+        $this->recordThat(
+          new AlertConfirmed($this->getIdentity())
+        );
     }
 
     /**
@@ -82,14 +91,6 @@ class Alert
     }
 
     /**
-     * @param Position $position
-     */
-    public function setPosition(Position $position): void
-    {
-        $this->position = $position;
-    }
-
-    /**
      * @return DomainEventInterface[]
      */
     public function getEvents(): array
@@ -97,8 +98,13 @@ class Alert
         return $this->events;
     }
 
+    public function clearEvents(): void
+    {
+        $this->events = [];
+    }
+
     /**
-     * @param DomainEvent[] $events
+     * @param DomainEventInterface[] $events
      * @return Alert
      * @throws ReflectionException
      */
@@ -141,6 +147,15 @@ class Alert
     {
         $this->identity = $event->getIdentity();
         $this->type = new Type($event->getType());
+        $this->status = self::STATUS_UNCONFIRMED;
         $this->position = new Position($event->getLatitude(), $event->getLongitude());
+    }
+
+    /**
+     * @param AlertConfirmed $event
+     */
+    public function applyAlertConfirmed(AlertConfirmed $event): void
+    {
+        $this->status = self::STATUS_CONFIRMED;
     }
 }

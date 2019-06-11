@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Presentation\Web\Controller;
 
 use App\Application\Command\AddAlertCommand;
+use App\Application\Command\ConfirmAlertCommand;
 use App\Application\Query\AlertQuery;
 use App\Application\ServiceBus\CommandBus;
 use App\Application\ServiceBus\QueryBus;
@@ -37,7 +38,7 @@ class AlertController extends AbstractController
      * @param string $identity
      * @return JsonResponse
      */
-    public function showAction(string $identity)
+    public function showAction(string $identity): JsonResponse
     {
         $query = new AlertQuery($identity);
         /** @var Alert $alert */
@@ -56,7 +57,7 @@ class AlertController extends AbstractController
      * @return JsonResponse
      * @throws Exception
      */
-    public function reportAction(Request $request)
+    public function reportAction(Request $request): JsonResponse
     {
         $identity = Uuid::uuid4()->toString();
         $data = json_decode($request->getContent(), true);
@@ -68,6 +69,21 @@ class AlertController extends AbstractController
             (float) $data['longitude']
         );
 
+        $this->commandBus->handle($command);
+
+        return $this->json([
+            'status' => 'success',
+            'identity' => $identity
+        ], 201);
+    }
+
+    /**
+     * @param string $identity
+     * @return JsonResponse
+     */
+    public function confirmAction(string $identity): JsonResponse
+    {
+        $command = new ConfirmAlertCommand($identity);
         $this->commandBus->handle($command);
 
         return $this->json([
